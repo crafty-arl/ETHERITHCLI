@@ -118,26 +118,84 @@ app.get('/api/pinata/test', async (c) => {
   }
 });
 
-// File upload endpoint (basic structure)
+// File upload endpoint
 app.post('/api/files', async (c) => {
   try {
-    // TODO: Implement file upload logic
-    // This endpoint will handle file uploads from the CLI
+    const formData = await c.req.formData();
+    const file = formData.get('file');
+
+    if (!file || typeof file === 'string') {
+      return c.json({
+        success: false,
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'No file provided'
+        }
+      }, 400);
+    }
+
+    // TypeScript type assertion after validation
+    const uploadFile = file as File;
+
+    // Extract metadata from form data
+    const title = formData.get('title') as string || uploadFile.name;
+    const description = formData.get('description') as string || `Family treasure: ${uploadFile.name}`;
+    const tagsString = formData.get('tags') as string || '';
+    const tags = tagsString ? tagsString.split(',').map(tag => tag.trim()).filter(Boolean) : [];
+
+    // Initialize Pinata client
+    const pinataClient = new PinataWorkerClient(
+      c.env.PINATA_API_KEY,
+      c.env.PINATA_SECRET_KEY
+    );
+
+    // Convert file to buffer for Pinata
+    const fileBuffer = await uploadFile.arrayBuffer();
+
+    // Upload to IPFS via Pinata
+    const pinataResponse = await pinataClient.pinFileFromBuffer(
+      fileBuffer,
+      uploadFile.name,
+      {
+        name: title,
+        keyvalues: {
+          title,
+          description,
+          tags: tags.join(','),
+          originalFilename: uploadFile.name,
+          mimeType: uploadFile.type,
+          uploadedAt: new Date().toISOString()
+        }
+      }
+    );
+
+    // Create response data
+    const responseData = {
+      id: Date.now(), // Temporary ID until we have a database
+      filename: uploadFile.name,
+      title,
+      description,
+      tags,
+      ipfsHash: pinataResponse.IpfsHash,
+      fileSize: uploadFile.size,
+      mimeType: uploadFile.type,
+      gatewayUrl: pinataClient.getGatewayUrl(pinataResponse.IpfsHash),
+      createdAt: pinataResponse.Timestamp,
+      updatedAt: pinataResponse.Timestamp
+    };
 
     return c.json({
       success: true,
-      message: 'File upload endpoint - coming soon',
-      data: {
-        endpoint: 'POST /api/files',
-        status: 'under_development'
-      }
+      data: responseData
     });
+
   } catch (error: any) {
+    console.error('Upload error:', error);
     return c.json({
       success: false,
       error: {
         code: 'UPLOAD_ERROR',
-        message: error.message
+        message: error.message || 'Failed to upload file'
       }
     }, 500);
   }
