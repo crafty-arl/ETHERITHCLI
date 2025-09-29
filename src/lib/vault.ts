@@ -15,7 +15,7 @@ export class VaultManager {
     return fs.existsSync(this.configFile);
   }
 
-  async initializeVault(name: string, pinataApiKey?: string, pinataSecretKey?: string): Promise<VaultConfig> {
+  async initializeVault(name: string): Promise<VaultConfig> {
     const vaultDirPath = path.join(this.vaultDir, '.etherith');
 
     // Create .etherith directory if it doesn't exist
@@ -26,9 +26,7 @@ export class VaultManager {
     const config: VaultConfig = {
       name,
       createdAt: new Date().toISOString(),
-      version: '0.1.0',
-      pinataApiKey,
-      pinataSecretKey
+      version: '0.2.0'
     };
 
     await this.saveConfig(config);
@@ -62,16 +60,7 @@ export class VaultManager {
     }
   }
 
-  async updatePinataCredentials(apiKey: string, secretKey: string): Promise<void> {
-    const config = await this.getConfig();
-    if (!config) {
-      throw new Error('Vault not initialized. Run "etherith init" first.');
-    }
-
-    config.pinataApiKey = apiKey;
-    config.pinataSecretKey = secretKey;
-    await this.saveConfig(config);
-  }
+  // Pinata credentials are now handled by Cloudflare API - no longer needed locally
 
   getDatabasePath(): string {
     return path.join(this.vaultDir, '.etherith', 'index.db');

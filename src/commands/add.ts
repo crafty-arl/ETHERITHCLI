@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { VaultManager } from '../lib/vault';
 import { Database } from '../lib/database';
-import { PinataClient } from '../lib/pinata';
+import { EtherithApiClient } from '../lib/api-client';
 import {
   validateFilePath,
   getFileInfo,
@@ -37,63 +37,53 @@ export async function addCommand(filePath: string, options: AddOptions) {
     // Get vault configuration
     const config = await vaultManager.getConfig();
     if (!config) {
-      throw new Error('Failed to load vault configuration');
-    }
-
-    // Check Pinata configuration
-    if (!config.pinataApiKey || !config.pinataSecretKey) {
-      console.error(chalk.red('❌ Pinata credentials not configured.'));
-      console.log(chalk.blue('💡 Please configure Pinata in .etherith/config.json or reinitialize the vault.'));
-      process.exit(1);
+      throw new Error('Failed to load family vault configuration');
     }
 
     // Get file information
-    spinner.start('Analyzing file...');
+    spinner.start('Analyzing family treasure...');
     const fileInfo = getFileInfo(filePath);
 
     if (!fileInfo.isValid) {
       throw new Error('Invalid file path');
     }
 
-    spinner.succeed(`File analyzed: ${fileInfo.filename} (${formatFileSize(fileInfo.fileSize)})`);
+    spinner.succeed(`Family treasure analyzed: ${fileInfo.filename} (${formatFileSize(fileInfo.fileSize)})`);
 
     // Generate metadata
-    spinner.start('Generating metadata...');
+    spinner.start('Generating heritage metadata...');
     const { title, description } = generateBasicMetadata(
       filePath,
       options.title,
       options.description
     );
     const tags = parseTagsString(options.tags);
-    spinner.succeed('Metadata generated');
+    spinner.succeed('Heritage metadata generated');
 
-    // Initialize Pinata client
-    const pinataClient = new PinataClient(config.pinataApiKey, config.pinataSecretKey);
-
-    // Upload to IPFS via Pinata
-    spinner.start('Uploading to IPFS...');
+    // Upload via Etheirth API (Pinata credentials handled by Cloudflare)
+    spinner.start('Preserving to IPFS via Etheirth cloud...');
     try {
-      const pinataResponse = await pinataClient.pinFile(filePath, {
-        name: title,
-        keyvalues: {
-          vault: config.name,
-          originalFilename: fileInfo.filename,
-          tags: tags.join(',')
-        }
+      const apiClient = new EtherithApiClient();
+
+      // Use the API client to upload file
+      const uploadResponse = await apiClient.uploadFile(filePath, {
+        title,
+        description,
+        tags
       });
 
-      spinner.succeed(`Uploaded to IPFS: ${pinataResponse.IpfsHash}`);
+      spinner.succeed(`Preserved to IPFS: ${uploadResponse.ipfsHash}`);
 
       // Save to local database
-      spinner.start('Updating local index...');
+      spinner.start('Updating family archive index...');
       const database = new Database({ dbPath: vaultManager.getDatabasePath() });
       await database.initialize();
 
       // Check if file already exists
-      const existingFile = await database.getFileByHash(pinataResponse.IpfsHash);
+      const existingFile = await database.getFileByHash(uploadResponse.ipfsHash);
       if (existingFile) {
         await database.close();
-        console.log(chalk.yellow('⚠️  File already exists in archive:'));
+        console.log(chalk.yellow('⚠️  Family treasure already preserved:'));
         console.log(chalk.gray(`   Title: ${existingFile.title}`));
         console.log(chalk.gray(`   IPFS: ${existingFile.ipfsHash}`));
         return;
@@ -102,34 +92,37 @@ export async function addCommand(filePath: string, options: AddOptions) {
       await database.addFile({
         filename: fileInfo.filename,
         originalPath: fileInfo.originalPath,
-        ipfsHash: pinataResponse.IpfsHash,
-        title,
-        description,
-        tags,
-        fileSize: fileInfo.fileSize,
-        mimeType: fileInfo.mimeType
+        ipfsHash: uploadResponse.ipfsHash,
+        title: uploadResponse.title,
+        description: uploadResponse.description,
+        tags: uploadResponse.tags,
+        fileSize: uploadResponse.fileSize,
+        mimeType: uploadResponse.mimeType
       });
 
       await database.close();
-      spinner.succeed('Local index updated');
+      spinner.succeed('Family archive index updated');
 
       // Success summary
-      console.log(chalk.green('\n✅ File archived successfully!'));
-      console.log(chalk.gray('━'.repeat(50)));
-      console.log(chalk.blue('📄 File:'), chalk.white(fileInfo.filename));
-      console.log(chalk.blue('📝 Title:'), chalk.white(title));
-      console.log(chalk.blue('📦 IPFS Hash:'), chalk.white(pinataResponse.IpfsHash));
-      console.log(chalk.blue('🏷️  Tags:'), chalk.white(tags.length > 0 ? tags.join(', ') : 'None'));
-      console.log(chalk.blue('📏 Size:'), chalk.white(formatFileSize(fileInfo.fileSize)));
-      console.log(chalk.blue('🔗 Gateway:'), chalk.gray(pinataClient.getGatewayUrl(pinataResponse.IpfsHash)));
-      console.log(chalk.gray('━'.repeat(50)));
+      console.log(chalk.green('\n✅ Family treasure preserved successfully!'));
+      console.log(chalk.gray('━'.repeat(60)));
+      console.log(chalk.blue('📄 Family Treasure:'), chalk.white(fileInfo.filename));
+      console.log(chalk.blue('📝 Heritage Title:'), chalk.white(uploadResponse.title));
+      console.log(chalk.blue('📦 IPFS Hash:'), chalk.white(uploadResponse.ipfsHash));
+      console.log(chalk.blue('🏷️  Heritage Tags:'), chalk.white(uploadResponse.tags.length > 0 ? uploadResponse.tags.join(', ') : 'None'));
+      console.log(chalk.blue('📏 Size:'), chalk.white(formatFileSize(uploadResponse.fileSize)));
+      console.log(chalk.blue('🔗 Gateway:'), chalk.gray(uploadResponse.gatewayUrl));
+      console.log(chalk.gray('━'.repeat(60)));
 
-      console.log(chalk.blue('\n🔍 Search for this file:'));
-      console.log(chalk.gray(`   etherith search "${title}"`));
+      console.log(chalk.blue('\n🔍 Find this treasure:'));
+      console.log(chalk.gray(`   etherith search "${uploadResponse.title}"`));
+
+      console.log(chalk.blue('\n🌐 Share with family:'));
+      console.log(chalk.gray(`   ${uploadResponse.gatewayUrl}`));
 
     } catch (error: any) {
-      spinner.fail('Upload failed');
-      throw new Error(`IPFS upload failed: ${error.message}`);
+      spinner.fail('Preservation failed');
+      throw new Error(`Family treasure preservation failed: ${error.message}`);
     }
 
   } catch (error: any) {

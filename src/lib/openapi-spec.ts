@@ -1,12 +1,12 @@
 export const openApiSpec = {
   openapi: "3.0.0",
   info: {
-    title: "Black and Brown Memory Archival Family API",
+    title: "Etheirth - Preserving Black and Brown Family Legacies API",
     version: "0.2.0",
-    description: "API for preserving and sharing the rich histories and memories of Black and Brown communities through decentralized, secure, and user-friendly technology",
+    description: "API for Etheirth, a decentralized memory vault designed specifically for Black and Brown families to preserve and protect their most precious cultural artifacts. Your family's stories, memories, and cultural treasures deserve to live forever.",
     contact: {
-      name: "Memory Archival Family Support",
-      url: "https://github.com/your-org/black-brown-memory-archival"
+      name: "Etheirth Support",
+      url: "https://github.com/your-org/etherith-cli"
     },
     license: {
       name: "MIT",
@@ -114,9 +114,9 @@ export const openApiSpec = {
     },
     "/api/files": {
       post: {
-        summary: "Archive Family Memory",
-        description: "Upload and permanently archive a family memory (photo, video, document, audio) to IPFS with AI-generated metadata",
-        tags: ["Memory Archive"],
+        summary: "Preserve Family Legacy",
+        description: "Upload and permanently preserve a family treasure (photos, videos, documents, audio, cultural artifacts) to IPFS with AI-generated metadata for your family's digital heirloom chest",
+        tags: ["Family Preservation"],
         requestBody: {
           required: true,
           content: {
@@ -127,22 +127,22 @@ export const openApiSpec = {
                   file: {
                     type: "string",
                     format: "binary",
-                    description: "The memory file to archive (photos, videos, documents, audio)"
+                    description: "The family treasure to preserve (photos, videos, documents, audio, cultural artifacts)"
                   },
                   title: {
                     type: "string",
-                    description: "Custom title for the memory",
-                    example: "Grandma's Stories from the 1960s"
+                    description: "Custom title for the family treasure",
+                    example: "Mama and Papa's Wedding Day"
                   },
                   description: {
                     type: "string",
-                    description: "Detailed description of the memory",
-                    example: "Oral history recordings of grandmother sharing stories about growing up in the South during the civil rights era"
+                    description: "Detailed description of the family treasure and its significance",
+                    example: "Traditional recipes passed down through generations from grandma's kitchen"
                   },
                   tags: {
                     type: "string",
-                    description: "Comma-separated tags for organizing memories",
-                    example: "oral-history,grandmother,civil-rights,family-stories,1960s"
+                    description: "Comma-separated tags for organizing family heritage",
+                    example: "wedding,family,1965,celebration,heritage"
                   }
                 },
                 required: ["file"]
@@ -152,7 +152,7 @@ export const openApiSpec = {
         },
         responses: {
           "200": {
-            description: "Memory successfully archived",
+            description: "Family treasure successfully preserved",
             content: {
               "application/json": {
                 schema: {
@@ -163,7 +163,7 @@ export const openApiSpec = {
                       example: true
                     },
                     data: {
-                      "$ref": "#/components/schemas/ArchivedMemory"
+                      "$ref": "#/components/schemas/PreservedTreasure"
                     }
                   }
                 }
@@ -205,25 +205,25 @@ export const openApiSpec = {
     },
     "/api/files/search": {
       get: {
-        summary: "Search Family Memories",
-        description: "Search through archived family memories by content, family members, events, or cultural context",
-        tags: ["Memory Search"],
+        summary: "Find Family Heritage",
+        description: "Search through your family's preserved treasures by family members, events, cultural artifacts, or any memorable detail",
+        tags: ["Heritage Search"],
         parameters: [
           {
             name: "q",
             in: "query",
             required: true,
-            description: "Search query (family member, event, cultural context, or any memorable detail)",
+            description: "Search query (family member, event, heritage item, or any memorable detail)",
             schema: {
               type: "string",
-              example: "grandmother stories"
+              example: "grandma wedding"
             }
           },
           {
             name: "limit",
             in: "query",
             required: false,
-            description: "Maximum number of results to return",
+            description: "Maximum number of family treasures to return",
             schema: {
               type: "integer",
               minimum: 1,
@@ -236,10 +236,10 @@ export const openApiSpec = {
             name: "tags",
             in: "query",
             required: false,
-            description: "Filter by specific tags (comma-separated)",
+            description: "Filter by specific heritage tags (comma-separated)",
             schema: {
               type: "string",
-              example: "oral-history,family-stories"
+              example: "wedding,family,heritage"
             }
           },
           {
@@ -257,7 +257,7 @@ export const openApiSpec = {
             name: "dateFrom",
             in: "query",
             required: false,
-            description: "Filter memories added after this date",
+            description: "Filter family treasures preserved after this date",
             schema: {
               type: "string",
               format: "date",
@@ -268,7 +268,7 @@ export const openApiSpec = {
             name: "dateTo",
             in: "query",
             required: false,
-            description: "Filter memories added before this date",
+            description: "Filter family treasures preserved before this date",
             schema: {
               type: "string",
               format: "date",
@@ -322,36 +322,36 @@ export const openApiSpec = {
   },
   components: {
     schemas: {
-      ArchivedMemory: {
+      PreservedTreasure: {
         type: "object",
         properties: {
           id: {
             type: "integer",
-            description: "Unique identifier for the archived memory",
+            description: "Unique identifier for the preserved family treasure",
             example: 123
           },
           filename: {
             type: "string",
-            description: "Original filename of the archived memory",
-            example: "grandma-stories-1960s.mp3"
+            description: "Original filename of the preserved family treasure",
+            example: "wedding-photos-1965.zip"
           },
           title: {
             type: "string",
-            description: "Title of the memory",
-            example: "Grandma's Stories from the 1960s"
+            description: "Title of the family treasure",
+            example: "Mama and Papa's Wedding Day"
           },
           description: {
             type: "string",
-            description: "Detailed description of the memory",
-            example: "Oral history recordings of grandmother sharing stories about growing up in the South during the civil rights era"
+            description: "Detailed description of the family treasure and its significance",
+            example: "Traditional recipes passed down through generations from grandma's kitchen"
           },
           tags: {
             type: "array",
             items: {
               type: "string"
             },
-            description: "Tags for organizing and finding the memory",
-            example: ["oral-history", "grandmother", "civil-rights", "family-stories", "1960s"]
+            description: "Heritage tags for organizing and finding family treasures",
+            example: ["wedding", "family", "1965", "celebration", "heritage"]
           },
           ipfsHash: {
             type: "string",
@@ -376,13 +376,13 @@ export const openApiSpec = {
           createdAt: {
             type: "string",
             format: "date-time",
-            description: "When the memory was first archived",
+            description: "When the family treasure was first preserved",
             example: "2024-03-15T10:30:00.000Z"
           },
           updatedAt: {
             type: "string",
             format: "date-time",
-            description: "When the memory was last updated",
+            description: "When the family treasure was last updated",
             example: "2024-03-15T10:30:00.000Z"
           }
         },
@@ -402,22 +402,22 @@ export const openApiSpec = {
                 },
                 filename: {
                   type: "string",
-                  example: "family-reunion-2023.mp4"
+                  example: "family-recipes.pdf"
                 },
                 title: {
                   type: "string",
-                  example: "Johnson Family Reunion 2023"
+                  example: "Grandma's Recipe Collection"
                 },
                 description: {
                   type: "string",
-                  example: "Annual family gathering with three generations celebrating together"
+                  example: "Traditional recipes passed down through generations from grandma's kitchen"
                 },
                 tags: {
                   type: "array",
                   items: {
                     type: "string"
                   },
-                  example: ["family-reunion", "celebration", "multi-generational", "2023"]
+                  example: ["recipes", "tradition", "cooking", "heritage", "grandma"]
                 },
                 ipfsHash: {
                   type: "string",
@@ -439,7 +439,7 @@ export const openApiSpec = {
                 matchType: {
                   type: "string",
                   enum: ["filename", "title", "description", "tags"],
-                  description: "What part of the memory matched the search",
+                  description: "What part of the family treasure matched the search",
                   example: "title"
                 },
                 createdAt: {
@@ -453,11 +453,11 @@ export const openApiSpec = {
           query: {
             type: "string",
             description: "The search query that was executed",
-            example: "family reunion"
+            example: "grandma recipes"
           },
           totalResults: {
             type: "integer",
-            description: "Total number of memories found",
+            description: "Total number of family treasures found",
             example: 15
           },
           searchTime: {
@@ -516,12 +516,12 @@ export const openApiSpec = {
       description: "IPFS storage and connectivity testing"
     },
     {
-      name: "Memory Archive",
-      description: "Upload and archive family memories permanently"
+      name: "Family Preservation",
+      description: "Upload and preserve family treasures permanently"
     },
     {
-      name: "Memory Search",
-      description: "Search and discover archived family memories"
+      name: "Heritage Search",
+      description: "Search and discover preserved family heritage"
     }
   ]
 };

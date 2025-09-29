@@ -2,8 +2,7 @@ export interface VaultConfig {
   name: string;
   createdAt: string;
   version: string;
-  pinataApiKey?: string;
-  pinataSecretKey?: string;
+  // Pinata credentials are now handled by Cloudflare API
 }
 
 export interface FileRecord {

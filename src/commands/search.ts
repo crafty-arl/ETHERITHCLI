@@ -2,7 +2,6 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { VaultManager } from '../lib/vault';
 import { Database } from '../lib/database';
-import { PinataClient } from '../lib/pinata';
 import { formatFileSize, formatDate } from '../lib/utils';
 import { FileRecord } from '../types';
 
@@ -40,11 +39,11 @@ export async function searchCommand(query: string, options: SearchOptions) {
     spinner.succeed(`Found ${results.length} result(s)`);
 
     if (results.length === 0) {
-      console.log(chalk.yellow('\n🔍 No files found matching your query.'));
+      console.log(chalk.yellow('\n🔍 No family treasures found matching your query.'));
       console.log(chalk.blue('\n💡 Tips:'));
       console.log(chalk.gray('   • Try broader search terms'));
-      console.log(chalk.gray('   • Search by filename, title, description, or tags'));
-      console.log(chalk.gray('   • Use partial words (e.g., "photo" instead of "photography")'));
+      console.log(chalk.gray('   • Search by family member, event, or heritage content'));
+      console.log(chalk.gray('   • Use partial words (e.g., "grandma" instead of "grandmother")'));
       return;
     }
 
@@ -65,7 +64,7 @@ export async function searchCommand(query: string, options: SearchOptions) {
 }
 
 async function displayTableResults(results: FileRecord[]) {
-  console.log(chalk.green(`\n📋 Search Results (${results.length} found):`));
+  console.log(chalk.green(`\n📋 Family Heritage Search Results (${results.length} found):`));
   console.log(chalk.gray('━'.repeat(80)));
 
   for (let i = 0; i < results.length; i++) {
@@ -87,12 +86,8 @@ async function displayTableResults(results: FileRecord[]) {
 
     console.log(chalk.gray(`    📅 Added: ${formatDate(file.createdAt)}`));
 
-    // Add gateway link
-    const config = await getVaultConfig();
-    if (config?.pinataApiKey) {
-      const pinataClient = new PinataClient(config.pinataApiKey, config.pinataSecretKey || '');
-      console.log(chalk.gray(`    🔗 Gateway: ${pinataClient.getGatewayUrl(file.ipfsHash)}`));
-    }
+    // Add gateway link (using public IPFS gateway)
+    console.log(chalk.gray(`    🔗 Gateway: https://gateway.pinata.cloud/ipfs/${file.ipfsHash}`));
 
     if (i < results.length - 1) {
       console.log('');
@@ -103,16 +98,7 @@ async function displayTableResults(results: FileRecord[]) {
 
   // Show usage tips
   console.log(chalk.blue('\n💡 Usage tips:'));
-  console.log(chalk.gray('   • Copy IPFS hash to access file directly'));
-  console.log(chalk.gray('   • Use gateway URL to view/download file'));
-  console.log(chalk.gray('   • Refine search with more specific terms'));
-}
-
-async function getVaultConfig() {
-  try {
-    const vaultManager = new VaultManager();
-    return await vaultManager.getConfig();
-  } catch (error) {
-    return null;
-  }
+  console.log(chalk.gray('   • Copy IPFS hash to access family treasure directly'));
+  console.log(chalk.gray('   • Use gateway URL to view/download heritage files'));
+  console.log(chalk.gray('   • Refine search with family member names or events'));
 }

@@ -4,13 +4,16 @@
 
 ## 🌟 What is Etheirth?
 
-Etheirth is a decentralized memory vault designed specifically for Black and Brown families to preserve and protect their most precious cultural artifacts. Your family's legacy is:
+Etheirth is a **public archive** for preserving Black and Brown family legacies. This is a community-shared space where your family's cultural artifacts are:
 - **Stored permanently** on the decentralized web (IPFS) - no single company can take it away
 - **Organized with care** using AI that understands the importance of family history
 - **Accessible from anywhere** - share your stories with family across the globe
 - **Protected forever** - your memories survive generations, not just years
+- **Part of our collective heritage** - contributing to a shared archive of Black and Brown history
 
-Think of Etheirth as your family's digital heirloom chest that never gets lost, damaged, or forgotten.
+Think of Etheirth as a community digital heirloom chest where families come together to preserve our collective cultural legacy.
+
+> **🌐 Important**: This is currently a **public archive**. All uploaded content becomes part of our shared community heritage archive. If you prefer private family storage, please wait for future updates with private vault options.
 
 ## ✨ What You Can Preserve
 
@@ -164,6 +167,18 @@ Every family treasure you store gets:
 - **Windows, Mac, or Linux**
 - **Node.js 18 or newer**
 - **Internet connection** (for storing files)
+
+## 🌐 API Access for Developers
+
+Want to integrate with the Etheirth public archive directly? Access our API documentation:
+
+**📚 API Documentation**: [https://etherith-api.carl-lewis.workers.dev/docs](https://etherith-api.carl-lewis.workers.dev/docs)
+
+Use the API to:
+- Upload files programmatically to the public archive
+- Search the community heritage collection
+- Build custom applications that preserve family legacies
+- Integrate with existing family websites or applications
 
 ## ❓ Common Questions
 
