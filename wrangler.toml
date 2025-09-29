@@ -1,0 +1,28 @@
+name = "etherith-api"
+main = "dist/worker.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "etherith-api"
+
+[env.staging]
+name = "etherith-api-staging"
+
+[vars]
+ENVIRONMENT = "production"
+
+# Secrets (set via wrangler secret put):
+# PINATA_API_KEY
+# PINATA_SECRET_KEY
+# JWT_SECRET
+
+# Optional services (uncomment when needed):
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "etherith-db"
+# database_id = "your-database-id"
+
+# [[kv_namespaces]]
+# binding = "SESSIONS"
+# id = "your-kv-namespace-id"

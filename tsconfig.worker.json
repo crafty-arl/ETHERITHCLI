@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "types": ["@cloudflare/workers-types"],
+    "lib": ["ES2022"]
+  },
+  "include": [
+    "src/worker.ts",
+    "src/lib/**/*",
+    "src/types/**/*"
+  ],
+  "exclude": [
+    "src/cli.ts",
+    "src/commands/**/*",
+    "node_modules",
+    "dist"
+  ]
+}

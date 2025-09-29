@@ -1,0 +1,110 @@
+# Docker Compose configuration for Etherith CLI development and production
+
+version: '3.8'
+
+services:
+  # Main Etherith CLI service
+  etherith-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: etherith-cli
+    environment:
+      - NODE_ENV=production
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - PINATA_API_KEY=${PINATA_API_KEY}
+      - PINATA_SECRET_KEY=${PINATA_SECRET_KEY}
+      - ETHERITH_CONFIG_PATH=/app/config/langraph-config.yaml
+    volumes:
+      # Mount local vault directory for persistence
+      - ./vault:/app/.etherith
+      # Mount logs directory
+      - ./logs:/app/logs
+      # Mount custom config if needed
+      - ./config:/app/config:ro
+    networks:
+      - etherith-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "dist/cli.js", "test-api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Run in interactive mode by default
+    stdin_open: true
+    tty: true
+    command: ["node", "dist/cli.js", "chat"]
+
+  # Development service with hot reload
+  etherith-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: etherith-dev
+    environment:
+      - NODE_ENV=development
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - PINATA_API_KEY=${PINATA_API_KEY}
+      - PINATA_SECRET_KEY=${PINATA_SECRET_KEY}
+    volumes:
+      # Mount source code for hot reload
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./langraph-config.yaml:/app/langraph-config.yaml
+      # Mount vault for development
+      - ./dev-vault:/app/.etherith
+      # Node modules as named volume for performance
+      - node_modules:/app/node_modules
+    networks:
+      - etherith-network
+    stdin_open: true
+    tty: true
+    command: ["npm", "run", "dev"]
+    profiles:
+      - development
+
+  # Cloudflare Workers local development
+  workers-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.workers
+    container_name: etherith-workers
+    environment:
+      - NODE_ENV=development
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    volumes:
+      - ./src:/app/src
+      - ./wrangler.toml:/app/wrangler.toml
+      - ./package.json:/app/package.json
+      - ./tsconfig.worker.json:/app/tsconfig.worker.json
+    ports:
+      - "8787:8787"
+    networks:
+      - etherith-network
+    command: ["npm", "run", "dev:worker"]
+    profiles:
+      - workers
+
+  # Redis for session storage (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: etherith-redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - etherith-network
+    restart: unless-stopped
+    profiles:
+      - redis
+
+networks:
+  etherith-network:
+    driver: bridge
+
+volumes:
+  node_modules:
+  redis_data:
