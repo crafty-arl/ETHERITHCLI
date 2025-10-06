@@ -1,11 +1,19 @@
 {
   "name": "etherith-cli",
   "version": "0.2.0",
-  "description": "Node.js CLI for archival memory storage on IPFS with AI metadata extraction",
+  "description": "Preserve Black and Brown family legacies forever on IPFS. A CLI tool for archiving family treasures with permanent decentralized storage.",
   "main": "dist/cli.js",
   "type": "commonjs",
   "bin": {
     "etherith": "./dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/etherith-cli.git"
+  },
+  "homepage": "https://github.com/your-org/etherith-cli#readme",
+  "bugs": {
+    "url": "https://github.com/your-org/etherith-cli/issues"
   },
   "scripts": {
     "build": "tsc",
@@ -22,10 +30,16 @@
   "keywords": [
     "cli",
     "ipfs",
+    "family-heritage",
     "archival",
-    "memory",
+    "memory-preservation",
+    "decentralized-storage",
     "pinata",
-    "storage"
+    "genealogy",
+    "cultural-preservation",
+    "black-heritage",
+    "family-history",
+    "legacy"
   ],
   "author": "Etherith",
   "license": "MIT",
