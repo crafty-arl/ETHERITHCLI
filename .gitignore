@@ -30,6 +30,13 @@ test-vault/
 logs/
 *.log
 lerna-debug.log*
+electron-error.log
+npm-output.log
+npm-error.log
+build-output.log
+build-error.log
+test-output.log
+test-error.log
 
 # OS generated files
 .DS_Store
