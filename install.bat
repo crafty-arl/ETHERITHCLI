@@ -391,15 +391,27 @@ echo ====================================================================
 echo.
 echo  Great! Node.js is now installed on your computer.
 echo.
-echo  NEXT STEPS:
-echo  -----------
-echo  1. Close this window completely
-echo  2. Open a NEW Command Prompt window
-echo     (Press Windows key + R, type "cmd", press Enter)
-echo  3. Navigate to the Etherith folder
-echo  4. Run install.bat again
+echo  IMPORTANT NEXT STEPS:
+echo  ---------------------
+echo  1. RESTART YOUR COMPUTER
+echo     - Click Start ^> Power ^> Restart
+echo     - Wait for your computer to fully boot back up
 echo.
-echo  Why? Your computer needs a fresh start to recognize Node.js
+echo  2. After restart, come back to the Etherith folder
+echo.
+echo  3. Double-click install.bat AGAIN
+echo     - This will complete the Etherith installation
+echo     - It will be much faster this time (1-2 minutes)
+echo.
+echo  Why restart?
+echo  - Windows needs a restart to add Node.js to your system PATH
+echo  - Without restarting, Etherith installation will fail
+echo  - This is a one-time requirement
+echo.
+echo  Why run install.bat twice?
+echo  - First run: Installed Node.js (just completed)
+echo  - Restart: Activates Node.js
+echo  - Second run: Installs Etherith
 echo.
 echo ====================================================================
 echo.

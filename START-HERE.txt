@@ -1,0 +1,168 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║                                                                        ║
+║              WELCOME TO ETHERITH FAMILY ARCHIVE!                       ║
+║                                                                        ║
+║         Preserve your family's stories, photos, and memories           ║
+║                  forever on the decentralized web                      ║
+║                                                                        ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+
+🚀 QUICK START - INSTALLATION IN 4 STEPS
+═══════════════════════════════════════════════════════════════════════
+
+  Step 1: Double-click "install.bat" in this folder
+
+  Step 2: Follow the on-screen instructions
+          (The installer does everything automatically!)
+
+  Step 3: RESTART YOUR COMPUTER when installation finishes
+          ⚠️ This is REQUIRED! Node.js won't work without restarting.
+
+  Step 4: Double-click "install.bat" AGAIN after restart
+          (If Node.js was just installed, you need to run the
+           installer again to complete the Etherith installation)
+
+
+📚 NEW TO COMMAND-LINE TOOLS? NO PROBLEM!
+═══════════════════════════════════════════════════════════════════════
+
+  We've created easy-to-follow guides just for you:
+
+  ✅ GETTING-STARTED.md  - Complete step-by-step guide for beginners
+  ✅ FAQ.md              - Answers to common questions
+  ✅ TROUBLESHOOTING.md  - Solutions to common problems
+
+
+🎯 AFTER INSTALLATION - IMPORTANT!
+═══════════════════════════════════════════════════════════════════════
+
+  ⚠️  IF NODE.JS WAS INSTALLED:
+
+  1. RESTART YOUR COMPUTER (very important!)
+
+  2. Run "install.bat" AGAIN
+     - This completes the Etherith installation
+     - It will be much faster the second time
+
+  3. Now Etherith is ready to use!
+
+  ═════════════════════════════════════════════════════════════════════
+
+  USING ETHERITH:
+
+  1. Open Command Prompt:
+     - Press the Windows key
+     - Type: cmd
+     - Press Enter
+
+  2. Test that it works:
+     - Type: etherith --help
+     - Press Enter
+
+  3. Create your family archive:
+     - Type: etherith init "My Family Archive"
+     - Press Enter
+
+  4. Add your first memory:
+     - Type: etherith add "C:\path\to\your\photo.jpg"
+     - Press Enter
+
+
+❓ FREQUENTLY ASKED QUESTIONS
+═══════════════════════════════════════════════════════════════════════
+
+  Q: Do I really need to restart my computer?
+  A: YES! If Node.js was just installed, you MUST restart your computer,
+     then run install.bat AGAIN to complete the Etherith installation.
+
+  Q: Do I need to run install.bat twice?
+  A: Only if Node.js wasn't already on your computer. The installer
+     will tell you if you need to restart and run it again.
+
+  Q: Where do I type commands?
+  A: In the Command Prompt (the black window that opens when you
+     press Windows key + type "cmd" + Enter)
+
+  Q: Is this safe?
+  A: Yes! Etherith is completely safe and free.
+
+  Q: Are my files private?
+  A: NO - files uploaded to IPFS are PUBLIC. Don't upload sensitive
+     information like Social Security numbers, passwords, etc.
+
+  Q: How much does it cost?
+  A: FREE! No fees, no subscriptions, no limits.
+
+  Q: Can I delete files after uploading?
+  A: NO - files on IPFS are permanent. This ensures your family
+     memories are preserved forever!
+
+  👉 See FAQ.md for more questions and answers!
+
+
+🔧 NEED HELP?
+═══════════════════════════════════════════════════════════════════════
+
+  If something goes wrong, check these files in order:
+
+  1. FAQ.md              - Common questions
+  2. TROUBLESHOOTING.md  - Problem-solving guide
+  3. GETTING-STARTED.md  - Complete beginner's guide
+
+
+📁 IMPORTANT FILES IN THIS FOLDER
+═══════════════════════════════════════════════════════════════════════
+
+  INSTALLATION:
+  ✅ install.bat          - Main installer (DOUBLE-CLICK THIS!)
+  ✅ fix-powershell.bat   - Fixes PowerShell script errors
+  ✅ uninstall.bat        - Removes Etherith if needed
+
+  DOCUMENTATION:
+  📖 START-HERE.txt       - This file (you are here!)
+  📖 GETTING-STARTED.md   - Complete beginner's guide
+  📖 FAQ.md               - Frequently asked questions
+  📖 TROUBLESHOOTING.md   - Solutions to common problems
+  📖 README.md            - Full project overview
+
+  TECHNICAL DOCS (for advanced users):
+  📄 INSTALLATION.md      - Detailed installation info
+  📄 QUICK-INSTALL.md     - Developer quick install guide
+
+
+⚠️  IMPORTANT REMINDERS
+═══════════════════════════════════════════════════════════════════════
+
+  1. ⚠️  RESTART YOUR COMPUTER after installation finishes
+      Then run install.bat AGAIN to complete setup!
+
+  2. ⚠️  Files uploaded to IPFS are PUBLIC and PERMANENT
+      - Don't upload private information
+      - Only upload files you're okay with being public
+
+  3. ⚠️  Use Command Prompt (cmd), not PowerShell
+      - Or run fix-powershell.bat if you want to use PowerShell
+
+  4. ⚠️  Be patient during installation
+      - May take 5-10 minutes depending on internet speed
+
+
+🎉 YOU'RE ALMOST THERE!
+═══════════════════════════════════════════════════════════════════════
+
+  Ready to get started?
+
+  👉 Double-click "install.bat" now!
+
+
+  After installation and restart, you'll be preserving your family's
+  precious memories forever on the decentralized web! 🌟
+
+
+═══════════════════════════════════════════════════════════════════════
+  Questions? Read GETTING-STARTED.md or FAQ.md
+  Problems? Check TROUBLESHOOTING.md
+
+  Thank you for preserving your family's legacy! 🌳
+═══════════════════════════════════════════════════════════════════════

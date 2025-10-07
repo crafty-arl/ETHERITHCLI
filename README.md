@@ -26,36 +26,47 @@ Think of Etheirth as a community digital heirloom chest where families come toge
 
 ## 🚀 Start Preserving Your Family's Legacy
 
-### Step 1: Install Node.js
-Download and install [Node.js](https://nodejs.org/) (version 18 or newer)
+### Super Simple Installation (Windows)
 
-### Step 2: Install Etheirth
-```bash
-# Download Etheirth
-git clone https://github.com/your-org/etherith-cli.git
-cd etherith-cli
+1. **Double-click `install.bat`** in the Etherith folder
+2. **Follow the on-screen instructions** (the installer does everything automatically)
+3. **If Node.js was installed: Restart your computer**
+4. **Run `install.bat` again** to complete the Etherith installation
+5. **You're ready to preserve memories!**
 
-# Install and build
-npm install
-npm run build
+> ⚠️ **Important**: If the installer installs Node.js, you'll need to restart your computer and then run `install.bat` a second time. The installer will tell you if this is needed!
 
-# Make it available everywhere (optional)
-npm link
-```
+> 💡 **First time using command-line tools?** Don't worry! Check out **[GETTING-STARTED.md](GETTING-STARTED.md)** for a complete step-by-step guide written for non-technical users.
 
-### Step 3: Create Your Family Vault
+> ❓ **Have questions?** See **[FAQ.md](FAQ.md)** for answers to common questions.
+
+> 🔧 **Something not working?** Check **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for solutions.
+
+### Quick Start After Installation
+
+Once installed (and after restarting your computer), open Command Prompt and try:
+
 ```bash
 # Create your family's memory vault
 etherith init "Johnson Family Archive"
 
 # Add your first family treasure
-etherith add grandma-recipe-book.pdf
+etherith add "C:\Users\YourName\Pictures\family-photo.jpg"
 
 # Search for family memories
 etherith search "grandma"
 ```
 
 That's it! Your family's stories are now protected forever.
+
+### Installation Files Quick Reference
+
+- **`install.bat`** - Main installer (just double-click!)
+- **`fix-powershell.bat`** - Fixes PowerShell script errors
+- **`uninstall.bat`** - Removes Etherith if needed
+- **[GETTING-STARTED.md](GETTING-STARTED.md)** - Complete beginner's guide
+- **[FAQ.md](FAQ.md)** - Frequently asked questions
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Fix common problems
 
 ## 📖 How to Preserve Your Family's Memories
 
